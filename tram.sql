@@ -19,12 +19,25 @@ PROMPT '.... User created with required privileges'
 PROMPT 'Connecting as STEP user'
 conn TRAM_ADMIN/TRAM
 
+PROMPT '....customer table is in creation'
+
+CREATE TABLE customer (
+	customer_id 	NUMBER(20),
+	customer_name 	VARCHAR(20),
+	contact_no 		VARCHAR(15),
+	--other details also has to be captured
+	CONSTRAINT customer_pk PRIMARY KEY(customer_id)
+);
+
+PROMPT '....employee table is created'
+
 PROMPT '....monthly_holder table is in creation'
 
 CREATE TABLE monthly_holder (
-	monthly_holder_id 		NUMBER(3),
-	monthly_holder_name		VARCHAR(20),
-	CONSTRAINT monthly_holder_pk PRIMARY KEY(monthly_holder_id)
+	monthly_holder_id 		NUMBER(20),
+	monthly_id 				NUMBER(5),
+	CONSTRAINT monthly_holder_pk PRIMARY KEY(monthly_id),
+	CONSTRAINT holder_fk FOREIGN KEY (monthly_holder_id) REFERENCES customer(customer_id)  
 );
 
 PROMPT '....monthly_holder table is created'
@@ -40,17 +53,6 @@ CREATE TABLE employee (
 
 PROMPT '....employee table is created'
 
-PROMPT '....customer table is in creation'
-
-CREATE TABLE customer (
-	customer_id 	NUMBER(3),
-	customer_name 	VARCHAR(20),
-	contact_no 		VARCHAR(15),
-	--other details also has to be captured
-	CONSTRAINT customer_pk PRIMARY KEY(customer_id)
-);
-
-PROMPT '....employee table is created'
 
 PROMPT '....junction table is in creation'
 
